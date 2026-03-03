@@ -11,50 +11,54 @@ class ComplianceAnalyzer:
 
     def analyze(self):
 
-        violations=[]
-        total_risk=0
+        violations = []
+        total_severity = 0
+        max_possible_severity = 0
 
         for field, rule in self.rules.items():
 
-            actual=self.data.get(field,"No")
+            expected = rule.get("expected")
+            actual = self.data.get(field)
 
-            if actual != rule["expected"]:
+            severity = rule.get("severity", 10)
+            max_possible_severity += severity
 
-                # Convert NEW schema → OLD structure (compatibility layer)
-                issue = rule.get("risk_event","Control failure")
-                section = rule.get("section","DPDPA")
-                severity = rule.get("severity",10)
+            if actual != expected:
 
                 violations.append({
-                    "field":field,
-                    "section":section,
-                    "issue":issue,
-                    "risk":severity,        # maps to old 'risk'
-                    "penalty":0             # keep placeholder so report_generator won't break
+                    "field": field,
+                    "section": rule.get("section"),
+                    "activity": rule.get("activity"),
+                    "issue": rule.get("risk_event"),
+                    "legal_obligation": rule.get("legal_obligation"),
+                    "risk": severity,
+                    "penalty": 0
                 })
 
-                total_risk += severity
+                total_severity += severity
 
-        total_controls = len(self.rules)
-        failed_controls = len(violations)
-
-        if total_controls == 0:
+        # Compliance score based on statutory coverage
+        if max_possible_severity == 0:
             compliance_score = 100
         else:
-            compliance_score = int(((total_controls - failed_controls) / total_controls) * 100)
+            failure_ratio = total_severity / max_possible_severity
+            compliance_score = int((1 - failure_ratio) * 100)
 
-        if compliance_score>85:
-            level="Low"
-        elif compliance_score>70:
-            level="Moderate"
-        elif compliance_score>50:
-            level="High"
+        # Risk segmentation aligned with enforcement exposure
+        if compliance_score >= 85:
+            risk_level = "Low"
+        elif compliance_score >= 70:
+            risk_level = "Moderate"
+        elif compliance_score >= 50:
+            risk_level = "High"
+        elif compliance_score >= 30:
+            risk_level = "Critical"
         else:
-            level="Severe"
+            risk_level = "Severe"
 
         return {
-            "violations":violations,
-            "score":compliance_score,
-            "risk_level":level,
-            "penalty":0
+            "violations": violations,
+            "score": compliance_score,
+            "risk_level": risk_level,
+            "penalty": 0
         }
