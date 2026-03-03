@@ -1,91 +1,82 @@
 {
-  "yn_notice": {
+  "yn_consent1": {
     "expected": "Yes",
-    "section": "Section 5",
-    "activity": "Privacy Notice Disclosure",
-    "legal_obligation": "Provide clear notice specifying purpose of processing, rights of Data Principal, and grievance mechanism.",
-    "risk_event": "Absence of valid privacy notice prior to data collection.",
-    "severity": 15
-  },
-
-  "yn_consent_valid": {
-    "expected": "Yes",
+    "category": "CONSENT_FAILURE",
     "section": "Section 6(1)",
-    "activity": "Consent Collection",
-    "legal_obligation": "Obtain free, specific, informed, and unambiguous consent through clear affirmative action.",
-    "risk_event": "Invalid or bundled consent mechanism.",
+    "legal_obligation": "Personal data shall be processed only upon obtaining valid consent of the Data Principal.",
+    "risk_event": "Unlawful processing of personal data without valid consent.",
     "severity": 25
   },
 
-  "yn_consent_record": {
+  "yn_consent3": {
     "expected": "Yes",
-    "section": "Section 6(7)",
-    "activity": "Consent Record Maintenance",
-    "legal_obligation": "Maintain demonstrable record of consent.",
-    "risk_event": "Inability to demonstrate lawful basis of processing.",
+    "category": "CONSENT_RECORD_FAILURE",
+    "section": "Section 7",
+    "legal_obligation": "Data Fiduciary must be able to demonstrate consent when required.",
+    "risk_event": "Inability to prove lawful processing if challenged.",
     "severity": 20
   },
 
-  "yn_legitimate_use": {
+  "yn_pn1": {
     "expected": "Yes",
-    "section": "Section 7",
-    "activity": "Non-Consent Processing",
-    "legal_obligation": "Processing without consent must fall strictly within legitimate use categories.",
-    "risk_event": "Improper reliance on legitimate use provision.",
+    "category": "NOTICE_FAILURE",
+    "section": "Section 5",
+    "legal_obligation": "Data Principal must be informed of purpose and processing details via notice.",
+    "risk_event": "Data Principal unaware of processing activities.",
     "severity": 18
   },
 
-  "tc_security_safeguards": {
+  "yn_pn4": {
     "expected": "Yes",
-    "section": "Section 8(5)",
-    "activity": "Technical Security Controls",
-    "legal_obligation": "Implement reasonable technical and organizational safeguards to prevent data breach.",
-    "risk_event": "Failure to implement encryption, access control, or monitoring.",
-    "severity": 30
-  },
-
-  "yn_breach_notification": {
-    "expected": "Yes",
-    "section": "Section 8(6)",
-    "activity": "Breach Reporting Process",
-    "legal_obligation": "Notify Data Protection Board and affected individuals upon personal data breach.",
-    "risk_event": "Delayed or absent breach notification mechanism.",
-    "severity": 22
-  },
-
-  "yn_child_parental_consent": {
-    "expected": "Yes",
-    "section": "Section 9(1)",
-    "activity": "Processing Children's Data",
-    "legal_obligation": "Obtain verifiable parental consent before processing personal data of a child.",
-    "risk_event": "Processing minors' data without parental verification.",
-    "severity": 35
-  },
-
-  "yn_child_tracking": {
-    "expected": "No",
-    "section": "Section 9(2)",
-    "activity": "Behavioral Monitoring of Children",
-    "legal_obligation": "Prohibition of tracking, behavioral monitoring, or targeted advertising directed at children.",
-    "risk_event": "Tracking or profiling of minors.",
-    "severity": 30
-  },
-
-  "yn_grievance": {
-    "expected": "Yes",
+    "category": "GRIEVANCE_FAILURE",
     "section": "Section 11",
-    "activity": "Grievance Redressal",
-    "legal_obligation": "Establish accessible grievance redressal mechanism.",
-    "risk_event": "Absence of internal complaint resolution mechanism.",
+    "legal_obligation": "Provide accessible grievance redressal mechanism.",
+    "risk_event": "Complaints may directly escalate to Data Protection Board.",
     "severity": 15
   },
 
-  "yn_accountability": {
+  "tc_enc_rest": {
     "expected": "Yes",
-    "section": "Section 10",
-    "activity": "Compliance Governance",
-    "legal_obligation": "Appoint responsible officer and implement compliance oversight (if applicable).",
-    "risk_event": "Absence of structured data governance.",
+    "category": "SECURITY_FAILURE",
+    "section": "Section 8(5)",
+    "legal_obligation": "Implement reasonable security safeguards to protect personal data.",
+    "risk_event": "Unauthorized access or disclosure of personal data.",
+    "severity": 25
+  },
+
+  "tc_mfa": {
+    "expected": "Yes",
+    "category": "ACCESS_CONTROL_FAILURE",
+    "section": "Section 8(5)",
+    "legal_obligation": "Restrict access to personal data to authorized personnel only.",
+    "risk_event": "Unauthorized internal access to personal data.",
     "severity": 18
+  },
+
+  "tc_fw": {
+    "expected": "Yes",
+    "category": "NETWORK_SECURITY_FAILURE",
+    "section": "Section 8(5)",
+    "legal_obligation": "Protect systems handling personal data from external intrusion.",
+    "risk_event": "External cyber intrusion and data breach.",
+    "severity": 18
+  },
+
+  "yn_bm3": {
+    "expected": "Yes",
+    "category": "BREACH_NON_REPORTING",
+    "section": "Section 8(6)",
+    "legal_obligation": "Notify Data Protection Board and affected Data Principals upon breach.",
+    "risk_event": "Regulatory enforcement action after unreported breach.",
+    "severity": 22
+  },
+
+  "yn_gov1": {
+    "expected": "Yes",
+    "category": "ACCOUNTABILITY_FAILURE",
+    "section": "Section 10",
+    "legal_obligation": "Assign responsible officer for compliance oversight.",
+    "risk_event": "Lack of accountability for personal data processing.",
+    "severity": 15
   }
 }
