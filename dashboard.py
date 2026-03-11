@@ -5,7 +5,7 @@ import json
 
 from rule_engine import ComplianceAnalyzer
 from report_generator import generate_report
-from admin_auth import authenticate
+from auth import authenticate
 
 # -------- SESSION STATE --------
 if "authenticated" not in st.session_state:
