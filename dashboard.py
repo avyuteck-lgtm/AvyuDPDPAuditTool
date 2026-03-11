@@ -1,52 +1,52 @@
 import streamlit as st
-import tempfile
-import os
 import json
 
 from rule_engine import ComplianceAnalyzer
+from penalty_engine import explain_business_impact
+from remediation_engine import remediation_steps
 from report_generator import generate_report
+
 
 def dashboard():
 
-    st.title("DPDP Compliance Dashboard")
+    st.title("Avyu DPDP Compliance Audit Dashboard")
 
-    st.write("Upload your assessment JSON to generate report")
+    # Upload JSON file
+    uploaded_file = st.file_uploader(
+        "Upload Client Assessment JSON",
+        type="json"
+    )
 
-    # your existing dashboard code continues here
+    # Run only if file is uploaded
+    if uploaded_file is not None:
 
-st.set_page_config(page_title="Avyu DPDPA Audit Tool", layout="centered")
+        data = json.load(uploaded_file)
 
-st.title("Avyu DPDPA Compliance Dashboard")
-st.markdown("Upload Assessment JSON File to Generate Compliance Report")
+        with open("temp_assessment.json", "w") as f:
+            json.dump(data, f)
 
-uploaded_file = st.file_uploader("Upload Assessment JSON", type=["json"])
+        analyzer = ComplianceAnalyzer("temp_assessment.json")
 
-org_name = st.text_input("Organization Name", value="Client Organization")
-
-if uploaded_file is not None:
-
-    # Save uploaded file temporarily
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".json") as tmp:
-        tmp.write(uploaded_file.read())
-        temp_path = tmp.name
-
-    if st.button("Generate Report"):
-
-        analyzer = ComplianceAnalyzer(temp_path)
         result = analyzer.analyze()
 
-        impacts = []  # can integrate impact engine later
-        actions = []  # remediation engine placeholder
+        impacts = explain_business_impact(result["violations"])
+        actions = remediation_steps(result["violations"])
 
-        output_file = "DPDPA_Report.pdf"
-        generate_report(result, impacts, actions, output_file, org=org_name)
+        org_name = analyzer.data.get("orgName", "Client Organization")
 
-        with open(output_file, "rb") as f:
-            st.download_button(
-                label="Download Compliance Report",
-                data=f,
-                file_name="DPDPA_Report.pdf",
-                mime="application/pdf"
-            )
+        generate_report(
+            result,
+            impacts,
+            actions,
+            "DPDPA_Report.pdf",
+            org=org_name
+        )
 
         st.success("Report Generated Successfully")
+
+        with open("DPDPA_Report.pdf", "rb") as f:
+            st.download_button(
+                "Download Report",
+                f,
+                file_name="DPDPA_Report.pdf"
+            )
