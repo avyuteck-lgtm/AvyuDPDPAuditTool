@@ -1,17 +1,21 @@
-from rule_engine import ComplianceAnalyzer
-from penalty_engine import explain_business_impact
-from remediation_engine import remediation_steps
-from report_generator import generate_report
-assessment="assessments/assessment.json"
+import streamlit as st
 
-analyzer=ComplianceAnalyzer(assessment)
-result=analyzer.analyze()
-print(result)
+from login import login
+from dashboard import dashboard
 
-impacts=explain_business_impact(result["violations"])
-actions=remediation_steps(result["violations"])
 
-org_name = analyzer.data.get("orgName","Client Organization")
-generate_report(result,impacts,actions,"DPDPA_Report.pdf",org=org_name)
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = False
 
-print("Report Generated Successfully")
+
+if st.session_state.logged_in:
+
+    if st.sidebar.button("Logout"):
+        st.session_state.logged_in = False
+        st.rerun()
+
+    dashboard()
+
+else:
+
+    login()
