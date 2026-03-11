@@ -5,31 +5,6 @@ import json
 
 from rule_engine import ComplianceAnalyzer
 from report_generator import generate_report
-from auth import authenticate
-
-# -------- SESSION STATE --------
-if "authenticated" not in st.session_state:
-    st.session_state.authenticated = False
-
-
-# -------- LOGIN PAGE --------
-def login_page():
-
-    st.title("Avyu DPDP Audit Tool")
-
-    username = st.text_input("Username")
-    password = st.text_input("Password", type="password")
-
-    if st.button("Login"):
-
-        if authenticate(username, password):
-
-            st.session_state.authenticated = True
-            st.success("Login Successful")
-            st.rerun()
-
-        else:
-            st.error("Invalid Credentials")
 
 st.set_page_config(page_title="Avyu DPDPA Audit Tool", layout="centered")
 
