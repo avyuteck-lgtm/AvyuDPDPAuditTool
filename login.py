@@ -3,7 +3,7 @@ from auth import authenticate
 
 def login():
 
-    st.title("Avyu DPDP Compliance Audit Tool")
+    st.title("Avyu DPDP Audit Tool")
 
     username = st.text_input("Username")
     password = st.text_input("Password", type="password")
