@@ -6,6 +6,14 @@ import json
 from rule_engine import ComplianceAnalyzer
 from report_generator import generate_report
 
+def dashboard():
+
+    st.title("DPDP Compliance Dashboard")
+
+    st.write("Upload your assessment JSON to generate report")
+
+    # your existing dashboard code continues here
+
 st.set_page_config(page_title="Avyu DPDPA Audit Tool", layout="centered")
 
 st.title("Avyu DPDPA Compliance Dashboard")
