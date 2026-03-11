@@ -11,15 +11,11 @@ from admin_auth import authenticate
 if "authenticated" not in st.session_state:
     st.session_state.authenticated = False
 
-# ---------- LOGIN SESSION ----------
-if "logged_in" not in st.session_state:
-    st.session_state.logged_in = False
 
+# -------- LOGIN PAGE --------
+def login_page():
 
-# ---------- LOGIN PAGE ----------
-if not st.session_state.logged_in:
-
-    st.title("Avyu DPDP Audit Tool - Admin Login")
+    st.title("Avyu DPDP Audit Tool")
 
     username = st.text_input("Username")
     password = st.text_input("Password", type="password")
@@ -27,11 +23,13 @@ if not st.session_state.logged_in:
     if st.button("Login"):
 
         if authenticate(username, password):
-            st.session_state.logged_in = True
+
+            st.session_state.authenticated = True
             st.success("Login Successful")
             st.rerun()
+
         else:
-            st.error("Invalid credentials")
+            st.error("Invalid Credentials")
 
 st.set_page_config(page_title="Avyu DPDPA Audit Tool", layout="centered")
 
