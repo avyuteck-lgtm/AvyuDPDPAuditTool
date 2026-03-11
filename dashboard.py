@@ -7,6 +7,10 @@ from rule_engine import ComplianceAnalyzer
 from report_generator import generate_report
 from admin_auth import authenticate
 
+# -------- SESSION STATE --------
+if "authenticated" not in st.session_state:
+    st.session_state.authenticated = False
+
 # ---------- LOGIN SESSION ----------
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
